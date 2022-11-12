@@ -34,7 +34,7 @@ class DecimalConstantsTest extends TestCase
     public function testE()
     {
         $this->assertTrue(DecimalConstants::e()->equals(
-            Decimal::fromString("2.71828182845904523536028747135266")
+            Decimal::fromString("2.7182818284590452")
         ));
 
         $this->assertTrue(DecimalConstants::e(32)->equals(
@@ -48,7 +48,7 @@ class DecimalConstantsTest extends TestCase
 
     /**
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $scale must be positive.
+     * @expectedExceptionMessage $scale must be
      */
     public function testNegativeParamsOnE()
     {
