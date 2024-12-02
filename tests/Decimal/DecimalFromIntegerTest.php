@@ -8,11 +8,9 @@ use PHPUnit\Framework\TestCase;
 
 class DecimalFromIntegerTest extends TestCase
 {
-    /**
-     * @expectedException \TypeError
-     */
     public function testNoInteger()
     {
+        $this->expectException(\TypeError::class);
         Decimal::fromInteger(5.1);
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
-use \Litipk\BigNumbers\Decimal as Decimal;
-use \Litipk\BigNumbers\DecimalConstants as DecimalConstants;
+use Litipk\BigNumbers\Decimal as Decimal;
+use Litipk\BigNumbers\DecimalConstants as DecimalConstants;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -31,12 +31,10 @@ class DecimalTanTest extends TestCase
         );
     }
 
-    /**
-     * @expectedException \DomainException
-     * @expectedExceptionMessage The tangent of this 'angle' is undefined.
-     */
     public function testTanPiTwoDiv()
     {
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage("The tangent of this 'angle' is undefined.");
         $PiDividedByTwo = DecimalConstants::PI()->div(Decimal::fromInteger(2));
         $PiDividedByTwo->tan();
     }

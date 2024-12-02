@@ -1,7 +1,6 @@
 <?php
 
 use Litipk\BigNumbers\Decimal as Decimal;
-use Litipk\Exceptions\InvalidArgumentTypeException;
 use PHPUnit\Framework\TestCase;
 
 date_default_timezone_set('UTC');

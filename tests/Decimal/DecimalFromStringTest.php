@@ -18,8 +18,8 @@ class DecimalFromStringTest extends TestCase
         $this->assertFalse($n1->isPositive());
         $this->assertFalse($n2->isPositive());
 
-        $this->assertEquals($n1->__toString(), '-1');
-        $this->assertEquals($n2->__toString(), '-1.0');
+        $this->assertEquals('-1', $n1->__toString());
+        $this->assertEquals('-1.0', $n2->__toString());
     }
 
     public function testExponentialNotationString_With_PositiveExponent_And_Positive()
@@ -102,12 +102,10 @@ class DecimalFromStringTest extends TestCase
         );
     }
 
-    /**
-     * @expectedException \Litipk\BigNumbers\Errors\NaNInputError
-     * @expectedExceptionMessage strValue must be a number
-     */
     public function testBadString()
     {
+        $this->expectException(\Litipk\BigNumbers\Errors\NaNInputError::class);
+        $this->expectExceptionMessage("strValue must be a number");
         Decimal::fromString('hello world');
     }
 
