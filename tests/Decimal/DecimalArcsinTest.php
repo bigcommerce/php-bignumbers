@@ -31,21 +31,17 @@ class DecimalArcsinTest extends TestCase
         );
     }
 
-    /**
-     * @expectedException \DomainException
-     * @expectedExceptionMessage The arcsin of this number is undefined.
-     */
     public function testArcsinGreaterThanOne()
     {
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage("The arcsin of this number is undefined.");
         Decimal::fromString('25.546')->arcsin();
     }
 
-    /**
-     * @expectedException \DomainException
-     * @expectedExceptionMessage The arcsin of this number is undefined.
-     */
     public function testArcsinFewerThanNegativeOne()
     {
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage("The arcsin of this number is undefined.");
         Decimal::fromString('-304.75')->arcsin();
     }
 }

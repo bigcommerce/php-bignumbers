@@ -7,29 +7,23 @@ date_default_timezone_set('UTC');
 
 class DecimalInternalValidationTest extends TestCase
 {
-    /**
-     * @expectedException \TypeError
-     */
     public function testConstructorNullValueValidation()
     {
+        $this->expectException(\TypeError::class);
         Decimal::fromInteger(null);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $scale must be a positive integer
-     */
     public function testConstructorNegativeScaleValidation()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('$scale must be a positive integer');
         Decimal::fromString("25", -15);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $scale must be a positive integer
-     */
     public function testOperatorNegativeScaleValidation()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('$scale must be a positive integer');
         $one = Decimal::fromInteger(1);
 
         $one->mul($one, -1);

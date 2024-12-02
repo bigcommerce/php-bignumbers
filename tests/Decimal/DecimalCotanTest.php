@@ -1,7 +1,7 @@
 <?php
 
-use \Litipk\BigNumbers\Decimal as Decimal;
-use \Litipk\BigNumbers\DecimalConstants as DecimalConstants;
+use Litipk\BigNumbers\Decimal as Decimal;
+use Litipk\BigNumbers\DecimalConstants as DecimalConstants;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -30,13 +30,11 @@ class DecimalCotanTest extends TestCase
             'cotan('.$nr.') must be equal to '.$answer.', but was '.$cotanX
         );
     }
-    
-    /**
-     * @expectedException \DomainException
-     * @expectedExceptionMessage The cotangent of this 'angle' is undefined.
-     */
+
     public function testCotanPiDiv()
-    {    	
+    {
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage("The cotangent of this 'angle' is undefined.");
         $PI  = DecimalConstants::PI();
         $PI->cotan();
     }

@@ -32,12 +32,10 @@ class DecimalArccscTest extends TestCase
         );
     }
 
-    /**
-     * @expectedException \DomainException
-     * @expectedExceptionMessage The arccosecant of this number is undefined.
-     */
     public function testArccscBetweenOneAndNegativeOne()
     {
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage("The arccosecant of this number is undefined.");
         Decimal::fromString('0.546')->arccsc();
     }
 }

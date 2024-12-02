@@ -50,7 +50,7 @@ class Decimal
      * @param  int   $scale
      * @return Decimal
      */
-    public static function create($value, int $scale = null): Decimal
+    public static function create($value, ?int $scale = null): Decimal
     {
         if (\is_int($value)) {
             return self::fromInteger($value);
@@ -80,7 +80,7 @@ class Decimal
      * @param  int   $scale
      * @return Decimal
      */
-    public static function fromFloat(float $fltValue, int $scale = null): Decimal
+    public static function fromFloat(float $fltValue, ?int $scale = null): Decimal
     {
         self::paramsValidation($fltValue, $scale);
 
@@ -91,7 +91,7 @@ class Decimal
         }
 
         $strValue = (string) $fltValue;
-        $hasPoint = (false !== \strpos($strValue, '.'));
+        $hasPoint = (\str_contains($strValue, '.'));
 
         if (\preg_match(self::EXP_NUM_GROUPS_NUMBER_REGEXP, $strValue, $capture)) {
             if (null === $scale) {
@@ -120,7 +120,7 @@ class Decimal
      * @param  integer $scale
      * @return Decimal
      */
-    public static function fromString(string $strValue, int $scale = null): Decimal
+    public static function fromString(string $strValue, ?int $scale = null): Decimal
     {
         self::paramsValidation($strValue, $scale);
 
@@ -147,7 +147,7 @@ class Decimal
         if ($scale < $min_scale) {
             $value = self::innerRound($value, $scale);
         } elseif ($min_scale < $scale) {
-            $hasPoint = (false !== \strpos($value, '.'));
+            $hasPoint = (\str_contains($value, '.'));
             $value .= ($hasPoint ? '' : '.') . \str_pad('', $scale - $min_scale, '0');
         }
 
@@ -162,7 +162,7 @@ class Decimal
      * @param  null|int $scale
      * @return Decimal
      */
-    public static function fromDecimal(Decimal $decValue, int $scale = null): Decimal
+    public static function fromDecimal(Decimal $decValue, ?int $scale = null): Decimal
     {
         self::paramsValidation($decValue, $scale);
 
@@ -183,7 +183,7 @@ class Decimal
      * @param  null|int $scale
      * @return Decimal
      */
-    public function add(Decimal $b, int $scale = null): Decimal
+    public function add(Decimal $b, ?int $scale = null): Decimal
     {
         self::paramsValidation($b, $scale);
 
@@ -199,7 +199,7 @@ class Decimal
      * @param  integer $scale
      * @return Decimal
      */
-    public function sub(Decimal $b, int $scale = null): Decimal
+    public function sub(Decimal $b, ?int $scale = null): Decimal
     {
         self::paramsValidation($b, $scale);
 
@@ -215,7 +215,7 @@ class Decimal
      * @param  integer $scale
      * @return Decimal
      */
-    public function mul(Decimal $b, int $scale = null): Decimal
+    public function mul(Decimal $b, ?int $scale = null): Decimal
     {
         self::paramsValidation($b, $scale);
 
@@ -239,7 +239,7 @@ class Decimal
      * @param  integer $scale
      * @return Decimal
      */
-    public function div(Decimal $b, int $scale = null): Decimal
+    public function div(Decimal $b, ?int $scale = null): Decimal
     {
         self::paramsValidation($b, $scale);
 
@@ -280,7 +280,7 @@ class Decimal
      * @param  integer $scale
      * @return Decimal
      */
-    public function sqrt(int $scale = null): Decimal
+    public function sqrt(?int $scale = null): Decimal
     {
         if ($this->isNegative()) {
             throw new \DomainException(
@@ -305,7 +305,7 @@ class Decimal
      * @param  integer  $scale
      * @return Decimal
      */
-    public function pow(Decimal $b, int $scale = null): Decimal
+    public function pow(Decimal $b, ?int $scale = null): Decimal
     {
         if ($this->isZero()) {
             if ($b->isPositive()) {
@@ -366,7 +366,7 @@ class Decimal
      * @param  integer $scale
      * @return Decimal
      */
-    public function log10(int $scale = null): Decimal
+    public function log10(?int $scale = null): Decimal
     {
         if ($this->isNegative()) {
             throw new \DomainException(
@@ -384,7 +384,7 @@ class Decimal
         );
     }
 
-    public function isZero(int $scale = null): bool
+    public function isZero(?int $scale = null): bool
     {
         $cmp_scale = $scale !== null ? $scale : $this->scale;
 
@@ -412,7 +412,7 @@ class Decimal
      * @param integer $scale
      * @return boolean
      */
-    public function equals(Decimal $b, int $scale = null): bool
+    public function equals(Decimal $b, ?int $scale = null): bool
     {
         self::paramsValidation($b, $scale);
 
@@ -438,7 +438,7 @@ class Decimal
      * @param  integer $scale
      * @return integer
      */
-    public function comp(Decimal $b, int $scale = null): int
+    public function comp(Decimal $b, ?int $scale = null): int
     {
         self::paramsValidation($b, $scale);
 
@@ -463,7 +463,7 @@ class Decimal
      * @param  integer $scale
      * @return bool
      */
-    public function isGreaterThan(Decimal $b, int $scale = null): bool
+    public function isGreaterThan(Decimal $b, ?int $scale = null): bool
     {
         return $this->comp($b, $scale) === 1;
     }
@@ -475,7 +475,7 @@ class Decimal
      * @param  integer $scale
      * @return bool
      */
-    public function isGreaterOrEqualTo(Decimal $b, int $scale = null): bool
+    public function isGreaterOrEqualTo(Decimal $b, ?int $scale = null): bool
     {
         $comparisonResult = $this->comp($b, $scale);
 
@@ -489,7 +489,7 @@ class Decimal
      * @param  integer $scale
      * @return bool
      */
-    public function isLessThan(Decimal $b, int $scale = null): bool
+    public function isLessThan(Decimal $b, ?int $scale = null): bool
     {
         return $this->comp($b, $scale) === -1;
     }
@@ -501,7 +501,7 @@ class Decimal
      * @param  integer $scale
      * @return bool
      */
-    public function isLessOrEqualTo(Decimal $b, int $scale = null): bool
+    public function isLessOrEqualTo(Decimal $b, ?int $scale = null): bool
     {
         $comparisonResult = $this->comp($b, $scale);
 
@@ -617,7 +617,7 @@ class Decimal
      * @param integer $scale
      * @return $this % $d
      */
-    public function mod(Decimal $d, int $scale = null): Decimal
+    public function mod(Decimal $d, ?int $scale = null): Decimal
     {
         $div = $this->div($d, 1)->floor();
         return $this->sub($div->mul($d), $scale);
@@ -630,7 +630,7 @@ class Decimal
      * @param integer $scale
      * @return Decimal sin($this)
      */
-    public function sin(int $scale = null): Decimal
+    public function sin(?int $scale = null): Decimal
     {
         // First normalise the number in the [0, 2PI] domain
         $x = $this->mod(DecimalConstants::PI()->mul(Decimal::fromString("2")));
@@ -657,7 +657,7 @@ class Decimal
      * @param integer $scale
      * @return Decimal
      */
-    public function cosec(int $scale = null): Decimal
+    public function cosec(?int $scale = null): Decimal
     {
         $sin = $this->sin($scale + 2);
         if ($sin->isZero()) {
@@ -676,7 +676,7 @@ class Decimal
      * @param integer $scale
      * @return Decimal cos($this)
      */
-    public function cos(int $scale = null): Decimal
+    public function cos(?int $scale = null): Decimal
     {
         // First normalise the number in the [0, 2PI] domain
         $x = $this->mod(DecimalConstants::PI()->mul(Decimal::fromString("2")));
@@ -703,7 +703,7 @@ class Decimal
      * @param integer $scale
      * @return Decimal
      */
-    public function sec(int $scale = null): Decimal
+    public function sec(?int $scale = null): Decimal
     {
         $cos = $this->cos($scale + 2);
         if ($cos->isZero()) {
@@ -721,7 +721,7 @@ class Decimal
      * @param integer $scale
      * @return Decimal
      */
-    public function arcsin(int $scale = null): Decimal
+    public function arcsin(?int $scale = null): Decimal
     {
         if($this->comp(DecimalConstants::one(), $scale + 2) === 1 || $this->comp(DecimalConstants::negativeOne(), $scale + 2) === -1) {
             throw new \DomainException(
@@ -754,7 +754,7 @@ class Decimal
      * @param integer $scale
      * @return Decimal
      */
-    public function arccos(int $scale = null): Decimal
+    public function arccos(?int $scale = null): Decimal
     {
         if($this->comp(DecimalConstants::one(), $scale + 2) === 1 || $this->comp(DecimalConstants::negativeOne(), $scale + 2) === -1) {
             throw new \DomainException(
@@ -791,7 +791,7 @@ class Decimal
      * @param integer $scale
      * @return Decimal
      */
-    public function arctan(int $scale = null): Decimal
+    public function arctan(?int $scale = null): Decimal
     {
         $piOverFour = DecimalConstants::pi()->div(Decimal::fromInteger(4), $scale + 2)->round($scale);
 
@@ -820,7 +820,7 @@ class Decimal
      * @param integer $scale
      * @return Decimal
      */
-    public function arccot(int $scale = null): Decimal
+    public function arccot(?int $scale = null): Decimal
     {
         $scale = ($scale === null) ? 32 : $scale;
 
@@ -852,7 +852,7 @@ class Decimal
      * @param integer $scale
      * @return Decimal
      */
-    public function arcsec(int $scale = null): Decimal
+    public function arcsec(?int $scale = null): Decimal
     {
         if($this->comp(DecimalConstants::one(), $scale + 2) === -1 && $this->comp(DecimalConstants::negativeOne(), $scale + 2) === 1) {
             throw new \DomainException(
@@ -886,7 +886,7 @@ class Decimal
      * @param integer $scale
      * @return Decimal
      */
-    public function arccsc(int $scale = null): Decimal
+    public function arccsc(?int $scale = null): Decimal
     {
         if($this->comp(DecimalConstants::one(), $scale + 2) === -1 && $this->comp(DecimalConstants::negativeOne(), $scale + 2) === 1) {
             throw new \DomainException(
@@ -916,7 +916,7 @@ class Decimal
      * @param integer $scale
      * @return Decimal
      */
-    public function exp(int $scale = null): Decimal
+    public function exp(?int $scale = null): Decimal
     {
         if ($this->isZero()) {
             return DecimalConstants::one();
@@ -1061,7 +1061,7 @@ class Decimal
      * @param integer $scale
      * @return Decimal tan($this)
      */
-    public function tan(int $scale = null): Decimal
+    public function tan(?int $scale = null): Decimal
     {
 	    $cos = $this->cos($scale + 2);
 	    if ($cos->isZero()) {
@@ -1080,7 +1080,7 @@ class Decimal
      * @param integer $scale
      * @return Decimal cotan($this)
      */
-    public function cotan(int $scale = null): Decimal
+    public function cotan(?int $scale = null): Decimal
     {
 	    $sin = $this->sin($scale + 2);
 	    if ($sin->isZero()) {
@@ -1133,7 +1133,7 @@ class Decimal
      *
      */
     private static function fromExpNotationString(
-        int $scale = null,
+        ?int $scale,
         string $sign,
         string $mantissa,
         int $nDecimals,
@@ -1322,7 +1322,7 @@ class Decimal
      * @param  mixed    $value
      * @param  null|int  $scale
      */
-    protected static function paramsValidation($value, int $scale = null)
+    protected static function paramsValidation($value, ?int $scale = null)
     {
         if (null === $value) {
             throw new \InvalidArgumentException('$value must be a non null number');

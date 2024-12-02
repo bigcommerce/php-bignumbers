@@ -7,23 +7,18 @@ date_default_timezone_set('UTC');
 
 class DecimalLog10Test extends TestCase
 {
-    /**
-     * @expectedException \DomainException
-     * @expectedExceptionMessage Decimal can't represent infinite numbers.
-     */
     public function testZeroLog10()
     {
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage("Decimal can't represent infinite numbers.");
         $zero = Decimal::fromInteger(0);
         $zero->log10();
     }
 
-    
-    /**
-     * @expectedException \DomainException
-     * @expectedExceptionMessage Decimal can't handle logarithms of negative numbers (it's only for real numbers).
-     */
     public function testNegativeLog10()
     {
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage("Decimal can't handle logarithms of negative numbers (it's only for real numbers).");
         Decimal::fromInteger(-1)->log10();
     }
 

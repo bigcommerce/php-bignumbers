@@ -46,12 +46,10 @@ class DecimalConstantsTest extends TestCase
         ));
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage $scale must be positive.
-     */
     public function testNegativeParamsOnE()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('$scale must be positive.');
         DecimalConstants::e(-3);
     }
 }

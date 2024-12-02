@@ -32,12 +32,10 @@ class DecimalArcsecTest extends TestCase
         );
     }
 
-    /**
-     * @expectedException \DomainException
-     * @expectedExceptionMessage The arcsecant of this number is undefined.
-     */
     public function testArcsecBetweenOneAndNegativeOne()
     {
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage("The arcsecant of this number is undefined.");
         Decimal::fromString('0.546')->arcsec();
     }
 }

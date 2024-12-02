@@ -6,12 +6,10 @@ use PHPUnit\Framework\TestCase;
 
 class DecimalFromFloatTest extends TestCase
 {
-    /**
-     * @expectedException \DomainException
-     * @expectedExceptionMessage fltValue can't be NaN
-     */
     public function testNaN()
     {
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage("fltValue can't be NaN");
         Decimal::fromFloat(INF - INF);
     }
 
@@ -57,7 +55,7 @@ class DecimalFromFloatTest extends TestCase
     /**
      * @dataProvider floatProvider
      */
-    public function testFromFloat(float $in, string $str, int $scale = null)
+    public function testFromFloat(float $in, string $str, ?int $scale = null)
     {
         $v = Decimal::fromFloat($in, $scale);
         $this->assertSame($str, $v->innerValue());

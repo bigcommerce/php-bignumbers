@@ -23,12 +23,10 @@ class DecimalSqrtTest extends TestCase
         $this->assertTrue(Decimal::fromString('0.0001')->sqrt()->equals(Decimal::fromString('0.01')));
     }
 
-    /**
-     * @expectedException \DomainException
-     * @expectedExceptionMessage Decimal can't handle square roots of negative numbers (it's only for real numbers).
-     */
     public function testFiniteNegativeSqrt()
     {
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage("Decimal can't handle square roots of negative numbers (it's only for real numbers).");
         Decimal::fromInteger(-1)->sqrt();
     }
 }

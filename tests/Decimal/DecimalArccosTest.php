@@ -31,21 +31,17 @@ class DecimalArccosTest extends TestCase
         );
     }
 
-    /**
-     * @expectedException \DomainException
-     * @expectedExceptionMessage The arccos of this number is undefined.
-     */
     public function testArcosGreaterThanOne()
     {
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage("The arccos of this number is undefined.");
         Decimal::fromString('25.546')->arccos();
     }
 
-    /**
-     * @expectedException \DomainException
-     * @expectedExceptionMessage The arccos of this number is undefined.
-     */
     public function testArccosFewerThanNegativeOne()
     {
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage("The arccos of this number is undefined.");
         Decimal::fromString('-304.75')->arccos();
     }
 }

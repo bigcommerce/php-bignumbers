@@ -15,12 +15,12 @@
 		"source": "http://github.com/Litipk/php-bignumbers"
 	},
 	"require": {
-		"php": ">=7.0",
+		"php": ">=8.0",
 		"ext-bcmath": "*"
 	},
 	"require-dev": {
-		"psy/psysh": "^0.8",
-		"phpunit/phpunit": "~6.0",
+		"psy/psysh": "^0.12",
+		"phpunit/phpunit": "~8",
 		"squizlabs/php_codesniffer": "^2.8",
 		"codeclimate/php-test-reporter": "^0.4"
 	},
