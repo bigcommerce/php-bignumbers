@@ -1,14 +1,14 @@
 <?php
 
 use Litipk\BigNumbers\Decimal as Decimal;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @group mod
- */
+#[Group('mod')]
 class DecimalModTest extends TestCase
 {
-    public function modProvider() {
+    public static function modProvider() {
         return [
             ['10', '3', '1'],
             ['34', '3.4', '0'],
@@ -19,9 +19,8 @@ class DecimalModTest extends TestCase
             ['-3.4', '2', '0.6']
         ];
     }
-    /**
-     * @dataProvider modProvider
-     */
+
+    #[DataProvider('modProvider')]
     public function testFiniteFiniteMod($number, $mod, $answer, $scale = null) {
         $numberDec = Decimal::fromString($number);
         $modDec = Decimal::fromString($mod);

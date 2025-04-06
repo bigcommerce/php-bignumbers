@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 date_default_timezone_set('UTC');
 
 
-class DecimalAsFloatTest extends TestCase
+class DecimalAsNativeTest extends TestCase
 {
     public function testAsInteger()
     {

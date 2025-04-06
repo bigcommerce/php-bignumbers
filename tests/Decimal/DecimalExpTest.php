@@ -1,14 +1,14 @@
 <?php
 
 use Litipk\BigNumbers\Decimal as Decimal;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @group cos
- */
+#[Group('cos')]
 class DecimalExpTest extends TestCase
 {
-    public function expProvider() {
+    public static function expProvider() {
         // Some values provided by Mathematica
         return [
             ['0', '1', 0],
@@ -26,9 +26,7 @@ class DecimalExpTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider expProvider
-     */
+    #[DataProvider('expProvider')]
     public function testSimple($nr, $answer, $digits)
     {
         $x = Decimal::fromString($nr);

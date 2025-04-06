@@ -2,14 +2,14 @@
 
 use Litipk\BigNumbers\Decimal as Decimal;
 use Litipk\BigNumbers\DecimalConstants as DecimalConstants;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @group tan
- */
+#[Group('tan')]
 class DecimalTanTest extends TestCase
 {
-    public function tanProvider() {
+    public static function tanProvider() {
         // Some values providede by mathematica
         return [
             ['1', '1.55740772465490', 14],
@@ -18,9 +18,7 @@ class DecimalTanTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider tanProvider
-     */
+    #[DataProvider('tanProvider')]
     public function testSimple($nr, $answer, $digits)
     {
         $x = Decimal::fromString($nr);

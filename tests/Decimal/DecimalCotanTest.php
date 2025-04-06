@@ -2,14 +2,13 @@
 
 use Litipk\BigNumbers\Decimal as Decimal;
 use Litipk\BigNumbers\DecimalConstants as DecimalConstants;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @group cotan
- */
+#[Group('cotan')]
 class DecimalCotanTest extends TestCase
 {
-    public function cotanProvider() {
+    public static function cotanProvider() {
         // Some values providede by mathematica
         return [
             ['1', '0.64209261593433', 14],
@@ -18,9 +17,7 @@ class DecimalCotanTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider cotanProvider
-     */
+    #[DataProvider('cotanProvider')]
     public function testSimple($nr, $answer, $digits)
     {
         $x = Decimal::fromString($nr);

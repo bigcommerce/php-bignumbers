@@ -1,14 +1,14 @@
 <?php
 
 use Litipk\BigNumbers\Decimal as Decimal;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @group arcsin
- */
+#[Group('arcsin')]
 class DecimalArcsinTest extends TestCase
 {
-    public function arcsinProvider() {
+    public static function arcsinProvider() {
         // Some values provided by wolframalpha
         return [
             ['0.154', '0.15461530016096', 14],
@@ -17,9 +17,7 @@ class DecimalArcsinTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider arcsinProvider
-     */
+    #[DataProvider('arcsinProvider')]
     public function testSimple($nr, $answer, $digits)
     {
         $x = Decimal::fromString($nr);
