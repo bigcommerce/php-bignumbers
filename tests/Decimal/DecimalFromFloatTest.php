@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 use Litipk\BigNumbers\Decimal as Decimal;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class DecimalFromFloatTest extends TestCase
@@ -13,7 +14,7 @@ class DecimalFromFloatTest extends TestCase
         Decimal::fromFloat(INF - INF);
     }
 
-    public function floatProvider()
+    public static function floatProvider()
     {
         $tests = [
             [1.1, "1.1"],
@@ -52,9 +53,7 @@ class DecimalFromFloatTest extends TestCase
         return $tests;
     }
 
-    /**
-     * @dataProvider floatProvider
-     */
+    #[DataProvider('floatProvider')]
     public function testFromFloat(float $in, string $str, ?int $scale = null)
     {
         $v = Decimal::fromFloat($in, $scale);

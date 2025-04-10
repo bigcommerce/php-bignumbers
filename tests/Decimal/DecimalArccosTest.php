@@ -1,14 +1,14 @@
 <?php
 
 use Litipk\BigNumbers\Decimal as Decimal;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @group arccos
- */
+#[Group('arccos')]
 class DecimalArccosTest extends TestCase
 {
-    public function arccosProvider() {
+    public static function arccosProvider() {
         // Some values provided by wolframalpha
         return [
             ['0.154', '1.41618102663394', 14],
@@ -17,9 +17,7 @@ class DecimalArccosTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider arccosProvider
-     */
+    #[DataProvider('arccosProvider')]
     public function testSimple($nr, $answer, $digits)
     {
         $x = Decimal::fromString($nr);

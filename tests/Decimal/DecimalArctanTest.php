@@ -1,14 +1,14 @@
 <?php
 
 use Litipk\BigNumbers\Decimal as Decimal;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @group arctan
- */
+#[Group('arctan')]
 class DecimalArctanTest extends TestCase
 {
-    public function arctanProvider() {
+    public static function arctanProvider() {
         // Some values provided by wolframalpha
         return [
             ['0.154', '0.15279961393666', 14],
@@ -17,9 +17,7 @@ class DecimalArctanTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider arctanProvider
-     */
+    #[DataProvider('arctanProvider')]
     public function testSimple($nr, $answer, $digits)
     {
         $x = Decimal::fromString($nr);

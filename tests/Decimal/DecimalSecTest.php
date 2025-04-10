@@ -1,14 +1,14 @@
 <?php
 
 use Litipk\BigNumbers\Decimal as Decimal;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @group sec
- */
+#[Group('sec')]
 class DecimalSecTest extends TestCase
 {
-    public function SecProvider() {
+    public static function SecProvider() {
         // Some values provided by Mathematica
         return [
             ['5', '3.52532008581609', 14],
@@ -17,9 +17,7 @@ class DecimalSecTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider secProvider
-     */
+    #[DataProvider('secProvider')]
     public function testSimple($nr, $answer, $digits)
     {
         $x = Decimal::fromString($nr);
